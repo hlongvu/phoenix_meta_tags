@@ -37,7 +37,7 @@ will become:
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+The package can be installed
 by adding `phoenix_meta_tags` to your list of dependencies in `mix.exs`:
 
 ```elixir
@@ -50,25 +50,26 @@ end
 In your Web Module add this:
 
 ```
- def view do
+def view do
     quote do
-		...
-   		use PhoenixMetaTags.TagView # Add this
+        ...
+        use PhoenixMetaTags.TagView # Add this
     end
- end
+end
  
-  def controller do
+def controller do
     quote do
-	    ...
-	    use PhoenixMetaTags.TagController # Add this 
+        ...
+        use PhoenixMetaTags.TagController # Add this
     end
-  end
+end
 ```
+
 Also put this render function inside your **\<head\>** tag of app.html.eex:
 
 ```
- <head>
-    <%= render_tags_all(assigns[:meta_tags] || %{})%>
+<head>
+    <%= render_tags_all(assigns[:meta_tags] || %{})%> # Add this
 </head>
 ```
 ## Usage
@@ -90,14 +91,14 @@ conn
 Or, use it as a plug:
 
 ```
-  @meta  %{
+@meta  %{
     title: "Phoenix Title",
     description: "Phoenix Descriptions",
     url: "https://phoenix.meta.tags",
     image: "https://phoenix.meta.tags/logo.png"
-  }
+}
 
-  plug :put_meta_tags, @meta
+plug :put_meta_tags, @meta
 
 ```
 

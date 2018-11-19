@@ -2,7 +2,6 @@ defmodule PhoenixMetaTags.TagView do
   use Phoenix.HTML
   @moduledoc """
   This module render the tags struct to html meta tag.
-
   """
 
 
