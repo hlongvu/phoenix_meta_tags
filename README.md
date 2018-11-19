@@ -106,7 +106,6 @@ Or, use it as a plug:
 You can put the default value for meta tags in your config file:
 
 ```
-
 config :phoenix_meta_tags,
        title: "Phoenix Title Default",
        description: "Phoenix Descriptions Default",

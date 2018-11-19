@@ -1,7 +1,8 @@
 defmodule PhoenixMetaTags.TagView do
   use Phoenix.HTML
   @moduledoc """
-  Documentation for PhoenixMetaTags.
+  This module render the tags struct to html meta tag.
+
   """
 
 
@@ -12,7 +13,9 @@ defmodule PhoenixMetaTags.TagView do
         tags[item] || Application.get_env(:phoenix_meta_tags , item)
       end
 
-
+      @doc """
+        Render default meta tags
+      """
       def render_tag_default(tags) do
         [
           content_tag(:title,get_value(tags, :title)),
@@ -21,6 +24,9 @@ defmodule PhoenixMetaTags.TagView do
         ]
       end
 
+      @doc """
+        Render meta tags for open graph
+      """
       def render_tag_og(tags) do
         [
           tag(:meta, content: "website",  property: "og:type"),
@@ -31,6 +37,9 @@ defmodule PhoenixMetaTags.TagView do
         ]
       end
 
+      @doc """
+        Render meta tags for twitter
+      """
       def render_tag_twitter(tags) do
         [
           tag(:meta, content: "summary_large_image",  property: "twitter:card"),
@@ -41,6 +50,9 @@ defmodule PhoenixMetaTags.TagView do
         ]
       end
 
+      @doc """
+        Render all meta tags for default, open graph and twitter
+      """
       def render_tags_all(tags) do
         render_tag_default(tags) ++ render_tag_og(tags) ++ render_tag_twitter(tags)
       end
