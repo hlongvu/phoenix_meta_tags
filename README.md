@@ -3,7 +3,7 @@
 This is a library helps generate meta tags for a website.
 From a struct like this:
 
-```
+```elixir
 %{
     title: "Phoenix Title",
     description: "Phoenix Descriptions",
@@ -13,7 +13,7 @@ From a struct like this:
 ```
 will become:
 
-```
+```html
 # Default tags
 <title>Phoenix Title</title>
 <meta content="Phoenix Title" name="title">
@@ -49,7 +49,7 @@ end
 ```
 In your Web Module add this:
 
-```
+```elixir
 def view do
     quote do
         ...
@@ -67,7 +67,7 @@ end
 
 Also put this render function inside your **\<head\>** tag of app.html.eex:
 
-```
+```elixir
 <head>
     <%= render_tags_all(assigns[:meta_tags] || %{})%> # Add this
 </head>
@@ -76,7 +76,7 @@ Also put this render function inside your **\<head\>** tag of app.html.eex:
 
 Wherever you want to render meta tags, jut put it before render your view:
 
-```
+```elixir
 conn
 |> put_meta_tags(
      %{
@@ -90,7 +90,7 @@ conn
 
 Or, use it as a plug:
 
-```
+```elixir
 @meta  %{
     title: "Phoenix Title",
     description: "Phoenix Descriptions",
@@ -106,7 +106,7 @@ plug :put_meta_tags, @meta
 ### Default value
 You can put the default value for meta tags in your config file:
 
-```
+```elixir
 config :phoenix_meta_tags,
        title: "Phoenix Title Default",
        description: "Phoenix Descriptions Default",
