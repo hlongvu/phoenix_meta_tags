@@ -68,18 +68,22 @@ defmodule PhoenixMetaTags.TagView do
       defp render_o_tags(other_tags) do
         other_tags
         |> Map.keys()
-        |> Enum.map(fn x -> render_o_element(x, get_value(other_tags, x)) end)
+        |> Enum.map(fn x -> render_o_element( "", x, get_value(other_tags, x)) end)
         |> List.flatten()
       end
 
-      defp render_o_element(key, value) when is_map(value) do
+      defp render_o_element(prefix, key, value) when is_map(value) do
+        p = if (prefix == ""), do: "", else: prefix <> ":"
+
          value
          |> Map.keys()
-         |> Enum.map(fn x -> tag(:meta, content: value[x],  property: Atom.to_string(key) <> ":" <> Atom.to_string(x)  ) end)
+         |> Enum.map( fn x -> render_o_element(p <> Atom.to_string(key), x, value[x]) end)
+         |> List.flatten()
       end
 
-      defp render_o_element(key, value) do
-        [tag(:meta, content: value,  property: Atom.to_string(key))]
+      defp render_o_element(prefix, key, value) do
+        p = if (prefix == ""), do: "", else: prefix <> ":"
+        [tag(:meta, content: value, property: p <> Atom.to_string(key))]
       end
 
 
