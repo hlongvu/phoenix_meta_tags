@@ -31,7 +31,6 @@ defmodule PhoenixMetaTagsTest do
   end
 
 
-
   test "render long key string" do
     tags = %{
       "title1:part:abc": "PhoenixTags1"
@@ -124,6 +123,22 @@ defmodule PhoenixMetaTagsTest do
     assert Enum.member?(tags, default_title2)
     assert Enum.member?(tags, og_title)
     assert Enum.member?(tags, twitter_title)
+  end
+
+
+  test "override value" do
+    tags = %{
+      title: "PhoenixTags",
+      og: %{
+        title: "Override",
+      }
+    }
+
+    og_tag = tag(:meta, content: "Override",  property: "og:title")
+
+    tags_all = render_tags_all(tags)
+
+    assert Enum.member?(tags_all, og_tag)
   end
 
 

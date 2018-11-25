@@ -6,6 +6,9 @@ defmodule PhoenixMetaTags.TagView do
   This module render the tags struct to html meta tag.
   """
 
+  # TODO: merge config with runtime tags map
+  # OK: override value if runtime tags has the same key, ex: `og:title` will override `title` when render og
+
   @config_read Application.get_all_env(:phoenix_meta_tags)
           |> Enum.into(%{})
           |> MapHelper.flatMap()
@@ -25,13 +28,18 @@ defmodule PhoenixMetaTags.TagView do
         tags[item] || @config[Atom.to_string(item)]
       end
 
+      # will return exac value if key is override the default key
+      # ex: `og:title` will override `title` when render og
+      defp get_tags_value(tags, default_key, key) do
+        tags[key] || tags[default_key] || @config[Atom.to_string(default_key)]
+      end
 
       @doc """
         Render default meta tags
       """
       def render_tag_default(tags) do
         [
-          content_tag(:title,get_value(tags, :title)),
+          content_tag(:title, get_value(tags, :title)),
           tag(:meta, content: get_value(tags, :title),  name: "title"),
           tag(:meta, content: get_value(tags, :description), name: "description")
         ]
@@ -43,10 +51,10 @@ defmodule PhoenixMetaTags.TagView do
       def render_tag_og(tags) do
         [
           tag(:meta, content: "website",  property: "og:type"),
-          tag(:meta, content: get_value(tags,:url),  property: "og:url"),
-          tag(:meta, content: get_value(tags,:title),  property: "og:title"),
-          tag(:meta, content: get_value(tags,:description),  property: "og:description"),
-          tag(:meta, content: get_value(tags,:image),  property: "og:image")
+          tag(:meta, content: get_tags_value(tags,:url, "og:url"),  property: "og:url"),
+          tag(:meta, content: get_tags_value(tags,:title, "og:title"),  property: "og:title"),
+          tag(:meta, content: get_tags_value(tags,:description, "og:description"),  property: "og:description"),
+          tag(:meta, content: get_tags_value(tags,:image, "og:image"),  property: "og:image")
         ]
       end
 
@@ -56,10 +64,10 @@ defmodule PhoenixMetaTags.TagView do
       def render_tag_twitter(tags) do
         [
           tag(:meta, content: "summary_large_image",  property: "twitter:card"),
-          tag(:meta, content: get_value(tags,:url),  property: "twitter:url"),
-          tag(:meta, content: get_value(tags,:title),  property: "twitter:title"),
-          tag(:meta, content: get_value(tags,:description),  property: "twitter:description"),
-          tag(:meta, content: get_value(tags,:image),  property: "twitter:image")
+          tag(:meta, content: get_tags_value(tags,:url, "twitter:url"),  property: "twitter:url"),
+          tag(:meta, content: get_tags_value(tags,:title, "twitter:title"),  property: "twitter:title"),
+          tag(:meta, content: get_tags_value(tags,:description, "twitter:description"),  property: "twitter:description"),
+          tag(:meta, content: get_tags_value(tags,:image, "twitter:image"),  property: "twitter:image")
         ]
       end
 
@@ -83,7 +91,12 @@ defmodule PhoenixMetaTags.TagView do
         Render all meta tags for default, open graph and twitter
       """
       def render_tags_all(tags) do
-        render_tag_default(tags) ++ render_tag_og(tags) ++ render_tag_twitter(tags)
+        ntags  = tags |> MapHelper.flatMap()
+        new_tags = Map.merge(@config, ntags)
+        other_tags = new_tags |> Map.drop(@default_tags)
+
+        render_tag_default(new_tags) ++ render_tag_og(new_tags) ++ render_tag_twitter(new_tags) ++ render_tags_map(other_tags)
+
       end
 
     end
