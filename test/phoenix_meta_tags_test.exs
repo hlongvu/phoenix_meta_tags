@@ -21,7 +21,7 @@ defmodule PhoenixMetaTagsTest do
 
   test "render key string" do
     tags = %{
-      "title1": "PhoenixTags1"
+      title1: "PhoenixTags1"
     }
 
     result = tag(:meta, content: "PhoenixTags1",  property: "title1")
@@ -111,32 +111,14 @@ defmodule PhoenixMetaTagsTest do
 
   end
 
-  test "get nested value" do
-    tags = %{
-      title1: "PhoenixTags",
-      fb: %{
-        appid: "1200129192192192",
-        video: %{
-          name: "video_name",
-          width: "100",
-          height: "200"
-        }
-      },
-      "fb:video": "abc"
-    }
-
-
-    assert get_nested_value(tags, "fb:video:name") == "video_name"
-
-  end
 
 
   test "test config value" do
     tags = render_tags_all(%{})
     default_title  =  content_tag(:title, "config_title")
-    default_title2 = tag(:meta, content: get_value(tags, :title),  name: "title")
-    og_title = tag(:meta, content: get_value(tags,:title),  property: "og:title")
-    twitter_title = tag(:meta, content: get_value(tags,:title),  property: "twitter:title")
+    default_title2 = tag(:meta, content: "config_title",  name: "title")
+    og_title = tag(:meta, content: "config_title",  property: "og:title")
+    twitter_title = tag(:meta, content: "config_title",  property: "twitter:title")
 
     assert Enum.member?(tags, default_title)
     assert Enum.member?(tags, default_title2)
