@@ -8,10 +8,10 @@ defmodule PhoenixMetaTagsTest do
   test "only default tags" do
 
     tags = %{
-      title: "hlongvu;",
-      description: "Hlongvu Blog",
-      url: "https://blog.hlongvu.com",
-      image: "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e0604c8783c88d26ff2b89c3fc0ac137&auto=format&fit=crop&w=1500&q=80"
+      title: "PhoenixTags;",
+      description: "PhoenixTags Blog",
+      url: "https://blog.PhoenixTags.com",
+      image: "https://images.unsplash.com/"
     }
 
     other_tags = render_tags_other(tags)
@@ -21,10 +21,23 @@ defmodule PhoenixMetaTagsTest do
 
   test "render key string" do
     tags = %{
-      "title1": "hlongvu1"
+      "title1": "PhoenixTags1"
     }
 
-    result = tag(:meta, content: "hlongvu1",  property: "title1")
+    result = tag(:meta, content: "PhoenixTags1",  property: "title1")
+
+    assert render_tags_other(tags) == [result]
+
+  end
+
+
+
+  test "render long key string" do
+    tags = %{
+      "title1:part:abc": "PhoenixTags1"
+    }
+
+    result = tag(:meta, content: "PhoenixTags1",  property: "title1:part:abc")
 
     assert render_tags_other(tags) == [result]
 
@@ -33,13 +46,13 @@ defmodule PhoenixMetaTagsTest do
 
   test "render other tags with key value" do
     tags = %{
-      title: "hlongvu;",
-      title1: "hlongvu1;",
-      title2: "hlongvu2;",
+      title: "PhoenixTags;",
+      title1: "PhoenixTags1;",
+      title2: "PhoenixTags2;",
     }
 
-    result1 = tag(:meta, content: "hlongvu1;",  property: "title1")
-    result2 = tag(:meta, content: "hlongvu2;",  property: "title2")
+    result1 = tag(:meta, content: "PhoenixTags1;",  property: "title1")
+    result2 = tag(:meta, content: "PhoenixTags2;",  property: "title2")
 
     assert render_tags_other(tags) == [result1 ,result2]
 
@@ -48,10 +61,10 @@ defmodule PhoenixMetaTagsTest do
   test "render other tags with map" do
 
     tags = %{
-      title: "hlongvu;",
-      description: "Hlongvu Blog",
-      url: "https://blog.hlongvu.com",
-      image: "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e0604c8783c88d26ff2b89c3fc0ac137&auto=format&fit=crop&w=1500&q=80",
+      title: "PhoenixTags;",
+      description: "PhoenixTags Blog",
+      url: "https://blog.PhoenixTags.com",
+      image: "https://images.unsplash.com/",
       other_url: "https://blog.otherurl.com",
       fb: %{
         appid: "1200129192192192"
@@ -72,30 +85,65 @@ defmodule PhoenixMetaTagsTest do
   test "render nested map" do
 
     tags = %{
-      title1: "hlongvu",
+      title1: "PhoenixTags",
       fb: %{
         appid: "1200129192192192",
-        video: "xxx",
         video: %{
           name: "video_name",
           width: "100",
           height: "200"
         }
-      }
+      },
+      "fb:video": "abc"
     }
 
 
-    result1 = tag(:meta, content: "hlongvu",  property: "title1")
+    result1 = tag(:meta, content: "PhoenixTags",  property: "title1")
     result2 = tag(:meta, content: "1200129192192192",  property: "fb:appid")
     result3 = tag(:meta, content: "video_name",  property: "fb:video:name")
     result4 = tag(:meta, content: "100",  property: "fb:video:width")
     result5 = tag(:meta, content: "200",  property: "fb:video:height")
+    result6 = tag(:meta, content: "abc",  property: "fb:video")
 
 
     other_tags = render_tags_other(tags)
-    assert other_tags -- [result1, result5,  result3, result4, result2] == []
+    assert other_tags -- [result1, result5,  result3, result4, result2, result6] == []
 
   end
+
+  test "get nested value" do
+    tags = %{
+      title1: "PhoenixTags",
+      fb: %{
+        appid: "1200129192192192",
+        video: %{
+          name: "video_name",
+          width: "100",
+          height: "200"
+        }
+      },
+      "fb:video": "abc"
+    }
+
+
+    assert get_nested_value(tags, "fb:video:name") == "video_name"
+
+  end
+
+
+  test "test config value" do
+    tags = render_tags_all(%{})
+    default_title  =  content_tag(:title, "config_title")
+    default_title2 = tag(:meta, content: get_value(tags, :title),  name: "title")
+    og_title = tag(:meta, content: get_value(tags,:title),  property: "og:title")
+    twitter_title = tag(:meta, content: get_value(tags,:title),  property: "twitter:title")
+
+    assert Enum.member?(tags, default_title)
+    assert Enum.member?(tags, default_title2)
+    assert Enum.member?(tags, og_title)
+    assert Enum.member?(tags, twitter_title)
+  end
+
 
 
 end
