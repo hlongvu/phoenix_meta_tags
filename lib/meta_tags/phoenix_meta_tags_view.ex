@@ -71,15 +71,13 @@ defmodule PhoenixMetaTags.TagView do
         ]
       end
 
-      # render other key not in default
 
-      def render_tags_other(tags) do
-          tags
-          |> Map.drop(@default_tags)
-          |> MapHelper.flatMap()
-          |> render_tags_map()
+      defp render_tags_other(tags) do
+        tags
+        |> Map.drop(@default_tags)
+        |> MapHelper.flatMap()
+        |> render_tags_map()
       end
-
 
       defp render_tags_map(map) do
         map
