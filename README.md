@@ -80,12 +80,12 @@ Instead of a nested map, you can also use a string-key map, this also delivers t
 
 ```elixir
 map = %{
-      "title" => "PhoenixTags",
-      "fb:name" => "facebook",
-      "fb:size:width" => 100,
-      "fb:size:height" => 200,
-      "fb:size:position:x" => 10,
-      "fb:size:position:y" => 15
+      "title": "PhoenixTags",
+      "fb:name": "facebook",
+      "fb:size:width": 100,
+      "fb:size:height": 200,
+      "fb:size:position:x": 10,
+      "fb:size:position:y": 15
     }
 
 ```
@@ -204,6 +204,4 @@ config :phoenix_meta_tags,
        }
                   
 ```
-
-If a controller has no meta tags, this default value will be used.
 

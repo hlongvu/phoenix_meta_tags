@@ -39,9 +39,9 @@ defmodule PhoenixMetaTags.TagView do
       """
       def render_tag_default(tags) do
         [
-          content_tag(:title, get_value(tags, :title)),
-          tag(:meta, content: get_value(tags, :title),  name: "title"),
-          tag(:meta, content: get_value(tags, :description), name: "description")
+          content_tag(:title, get_value(tags, "title")),
+          tag(:meta, content: get_value(tags, "title"),  name: "title"),
+          tag(:meta, content: get_value(tags, "description"), name: "description")
         ]
       end
 
@@ -51,10 +51,10 @@ defmodule PhoenixMetaTags.TagView do
       def render_tag_og(tags) do
         [
           tag(:meta, content: "website",  property: "og:type"),
-          tag(:meta, content: get_tags_value(tags,:url, "og:url"),  property: "og:url"),
-          tag(:meta, content: get_tags_value(tags,:title, "og:title"),  property: "og:title"),
-          tag(:meta, content: get_tags_value(tags,:description, "og:description"),  property: "og:description"),
-          tag(:meta, content: get_tags_value(tags,:image, "og:image"),  property: "og:image")
+          tag(:meta, content: get_tags_value(tags,"url", "og:url"),  property: "og:url"),
+          tag(:meta, content: get_tags_value(tags,"title", "og:title"),  property: "og:title"),
+          tag(:meta, content: get_tags_value(tags,"description", "og:description"),  property: "og:description"),
+          tag(:meta, content: get_tags_value(tags, "image", "og:image"),  property: "og:image")
         ]
       end
 
@@ -64,10 +64,10 @@ defmodule PhoenixMetaTags.TagView do
       def render_tag_twitter(tags) do
         [
           tag(:meta, content: "summary_large_image",  property: "twitter:card"),
-          tag(:meta, content: get_tags_value(tags,:url, "twitter:url"),  property: "twitter:url"),
-          tag(:meta, content: get_tags_value(tags,:title, "twitter:title"),  property: "twitter:title"),
-          tag(:meta, content: get_tags_value(tags,:description, "twitter:description"),  property: "twitter:description"),
-          tag(:meta, content: get_tags_value(tags,:image, "twitter:image"),  property: "twitter:image")
+          tag(:meta, content: get_tags_value(tags,"url", "twitter:url"),  property: "twitter:url"),
+          tag(:meta, content: get_tags_value(tags,"title", "twitter:title"),  property: "twitter:title"),
+          tag(:meta, content: get_tags_value(tags,"description", "twitter:description"),  property: "twitter:description"),
+          tag(:meta, content: get_tags_value(tags,"image", "twitter:image"),  property: "twitter:image")
         ]
       end
 
@@ -89,8 +89,11 @@ defmodule PhoenixMetaTags.TagView do
         Render all meta tags for default, open graph and twitter
       """
       def render_tags_all(tags) do
+
+        IO.inspect(tags)
         ntags  = tags |> MapHelper.flatMap()
         new_tags = Map.merge(@config, ntags)
+        IO.inspect(new_tags)
         other_tags = new_tags |> Map.drop(@default_tags)
 
         render_tag_default(new_tags) ++ render_tag_og(new_tags) ++ render_tag_twitter(new_tags) ++ render_tags_map(other_tags)
