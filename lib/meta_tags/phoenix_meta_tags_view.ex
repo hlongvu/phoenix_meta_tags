@@ -17,7 +17,7 @@ defmodule PhoenixMetaTags.TagView do
     quote do
 
       alias PhoenixMetaTags.MapHelper
-      @default_tags [:title, :description, :image, :url]
+      @default_tags ["title", "description", "image", "url"]
       @config unquote(Macro.escape(@config_read))
 
       defp is_default_tag(t) do
@@ -90,10 +90,10 @@ defmodule PhoenixMetaTags.TagView do
       """
       def render_tags_all(tags) do
 
-        IO.inspect(tags)
+#        IO.inspect(tags)
         ntags  = tags |> MapHelper.flatMap()
         new_tags = Map.merge(@config, ntags)
-        IO.inspect(new_tags)
+#        IO.inspect(new_tags)
         other_tags = new_tags |> Map.drop(@default_tags)
 
         render_tag_default(new_tags) ++ render_tag_og(new_tags) ++ render_tag_twitter(new_tags) ++ render_tags_map(other_tags)
