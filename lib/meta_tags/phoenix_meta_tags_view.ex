@@ -25,13 +25,13 @@ defmodule PhoenixMetaTags.TagView do
       end
 
       defp get_value(tags, item) do
-        tags[item] || @config[Atom.to_string(item)]
+        tags[item] || @config[item]
       end
 
       # will return exac value if key is override the default key
       # ex: `og:title` will override `title` when render og
       defp get_tags_value(tags, default_key, key) do
-        tags[key] || tags[default_key] || @config[Atom.to_string(default_key)]
+        tags[key] || tags[default_key] || @config[default_key]
       end
 
       @doc """
@@ -74,8 +74,8 @@ defmodule PhoenixMetaTags.TagView do
 
       defp render_tags_other(tags) do
         tags
-        |> Map.drop(@default_tags)
         |> MapHelper.flatMap()
+        |> Map.drop(@default_tags)
         |> render_tags_map()
       end
 

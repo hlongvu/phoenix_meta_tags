@@ -19,6 +19,20 @@ defmodule PhoenixMetaTagsTest do
   end
 
 
+  test "string keys" do
+
+    tags = %{
+      "title" => "PhoenixTags;",
+      "description" => "PhoenixTags Blog",
+      "url" => "https://blog.PhoenixTags.com",
+      "image" => "https://images.unsplash.com/"
+    }
+
+    other_tags = render_tags_other(tags)
+    assert other_tags == []
+  end
+
+
   test "render key string" do
     tags = %{
       title1: "PhoenixTags1"
@@ -118,6 +132,7 @@ defmodule PhoenixMetaTagsTest do
     default_title2 = tag(:meta, content: "config_title",  name: "title")
     og_title = tag(:meta, content: "config_title",  property: "og:title")
     twitter_title = tag(:meta, content: "config_title",  property: "twitter:title")
+    twitter_title = tag(:meta, content: "abc",  property: "fb:video")
 
     assert Enum.member?(tags, default_title)
     assert Enum.member?(tags, default_title2)

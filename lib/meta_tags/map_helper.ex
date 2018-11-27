@@ -19,6 +19,15 @@ defmodule PhoenixMetaTags.MapHelper do
   end
 
   defp prefix_for(prefix, key) do
-    if (prefix == ""), do: Atom.to_string(key), else: prefix <> ":" <> Atom.to_string(key)
+    if (prefix == ""), do: key_to_string(key), else: prefix <> ":" <> key_to_string(key)
   end
+
+  defp key_to_string(key) when is_atom(key) do
+    Atom.to_string(key)
+  end
+
+  defp key_to_string(key) when is_binary(key) do
+    key
+  end
+
 end
