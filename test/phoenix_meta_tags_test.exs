@@ -157,4 +157,47 @@ defmodule PhoenixMetaTagsTest do
   end
 
 
+  test "test all tags" do
+    tags = %{
+      title: "PhoenixTags;",
+      description: "PhoenixTags Blog",
+      url: "https://blog.PhoenixTags.com",
+      image: "https://images.unsplash.com/"
+    }
+
+    all_tags = render_tags_all(tags)
+
+    expected = [
+
+      content_tag(:title, "PhoenixTags;"),
+      tag(:meta, content: "PhoenixTags;",  name: "title"),
+      tag(:meta, content: "PhoenixTags Blog", name: "description"),
+
+      tag(:meta, content: "website",  property: "og:type"),
+      tag(:meta, content: "https://blog.PhoenixTags.com",  property: "og:url"),
+      tag(:meta, content: "PhoenixTags;",  property: "og:title"),
+      tag(:meta, content: "PhoenixTags Blog",  property: "og:description"),
+      tag(:meta, content: "https://images.unsplash.com/",  property: "og:image"),
+
+      tag(:meta, content: "summary_large_image",  property: "twitter:card"),
+      tag(:meta, content: "https://blog.PhoenixTags.com",  property: "twitter:url"),
+      tag(:meta, content: "PhoenixTags;",  property: "twitter:title"),
+      tag(:meta, content: "PhoenixTags Blog",  property: "twitter:description"),
+      tag(:meta, content: "https://images.unsplash.com/",  property: "twitter:image"),
+
+      tag(:meta, content: "abc",  property: "fb:video"),
+      tag(:meta, content: "PhoenixTags",  property: "title1"),
+      tag(:meta, content: "1200129192192192",  property: "fb:appid"),
+      tag(:meta, content: "video_name",  property: "fb:video:name"),
+      tag(:meta, content: "100",  property: "fb:video:width"),
+      tag(:meta, content: "200",  property: "fb:video:height"),
+      tag(:meta, content: "n100",  property: "fb:video:specs:north"),
+      tag(:meta, content: "w200",  property: "fb:video:specs:west")
+
+    ]
+
+    assert all_tags -- expected == []
+
+  end
+
 end
