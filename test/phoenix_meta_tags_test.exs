@@ -175,7 +175,7 @@ defmodule PhoenixMetaTagsTest do
       ]
 
       # assert all_tags -- expected == []
-      Enum.map(all_tags, fn(tag) ->
+      Enum.map(all_tags, fn tag ->
         assert tag in expected
       end)
     end

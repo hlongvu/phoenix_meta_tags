@@ -45,7 +45,7 @@ defmodule PhoenixMetaTags do
   ```elixir
   def deps do
   [
-    {:phoenix_meta_tags, "~> 0.1.0"}
+    {:phoenix_meta_tags, "~> 0.1.5"}
   ]
   end
   ```

@@ -80,12 +80,12 @@ Instead of a nested map, you can also use a string-key map, this also delivers t
 
 ```elixir
 map = %{
-      "title": "PhoenixTags",
-      "fb:name": "facebook",
-      "fb:size:width": 100,
-      "fb:size:height": 200,
-      "fb:size:position:x": 10,
-      "fb:size:position:y": 15
+      "title" => "PhoenixTags",
+      "fb:name" => "facebook",
+      "fb:size:width" => 100,
+      "fb:size:height" => 200,
+      "fb:size:position:x" => 10,
+      "fb:size:position:y" => 15
     }
 
 ```
@@ -120,7 +120,7 @@ by adding `phoenix_meta_tags` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phoenix_meta_tags, ">= 0.1.4"}
+    {:phoenix_meta_tags, ">= 0.1.5"}
   ]
 end
 ```
