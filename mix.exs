@@ -31,12 +31,11 @@ defmodule PhoenixMetaTags.MixProject do
     ]
   end
 
-
-  defp description() do
+  defp description do
     "A Phoenix library helps to generate meta tags for website."
   end
 
-  defp package() do
+  defp package do
     [
       # This option is only needed when you don't want to use the OTP application name
       name: "phoenix_meta_tags",
@@ -48,5 +47,4 @@ defmodule PhoenixMetaTags.MixProject do
       links: %{"GitHub" => "https://github.com/hlongvu/phoenix_meta_tags"}
     ]
   end
-
 end
