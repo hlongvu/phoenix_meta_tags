@@ -4,7 +4,6 @@ defmodule MapHelerTest do
   use Phoenix.HTML
 
   test "test map helper" do
-
     map = %{
       title: "PhoenixTags",
       fb: %{
@@ -21,6 +20,7 @@ defmodule MapHelerTest do
     }
 
     new_map = MapHelper.flatMap(map)
+
     expected_map = %{
       "title" => "PhoenixTags",
       "fb:name" => "facebook",
@@ -32,5 +32,4 @@ defmodule MapHelerTest do
 
     assert Map.equal?(new_map, expected_map)
   end
-
 end
