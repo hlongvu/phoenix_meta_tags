@@ -120,7 +120,7 @@ by adding `phoenix_meta_tags` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phoenix_meta_tags, ">= 0.1.5"}
+    {:phoenix_meta_tags, ">= 0.1.6"}
   ]
 end
 ```

@@ -6,18 +6,19 @@ defmodule PhoenixMetaTags.TagView do
   This module render the tags struct to html meta tag.
   """
 
-  # TODO: merge config with runtime tags map
   # OK: override value if runtime tags has the same key, ex: `og:title` will override `title` when render og
 
-  @config_read Application.get_all_env(:phoenix_meta_tags)
-               |> Enum.into(%{})
-               |> MapHelper.flatMap()
+#  @config_read Application.get_all_env(:phoenix_meta_tags)
+#               |> Enum.into(%{})
+#               |> MapHelper.flatMap()
 
   defmacro __using__(_) do
     quote do
       alias PhoenixMetaTags.MapHelper
       @default_tags ["title", "description", "image", "url"]
-      @config unquote(Macro.escape(@config_read))
+      @config Application.get_all_env(:phoenix_meta_tags)
+              |> Enum.into(%{})
+              |> MapHelper.flatMap()
 
       defp is_default_tag(t) do
         Enum.member?(@default_tags, t) == true
