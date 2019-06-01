@@ -29,11 +29,11 @@ defmodule PhoenixMetaTags do
   <meta content="https://phoenix.meta.tags/logo.png" property="og:image">
 
   #Twitter tags
-  <meta content="summary_large_image" property="twitter:card">
-  <meta content="https://phoenix.meta.tags" property="twitter:url">
-  <meta content="Phoenix Title" property="twitter:title">
-  <meta content="Phoenix Descriptions" property="twitter:description">
-  <meta content="https://phoenix.meta.tags/logo.png" property="twitter:image">
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="https://phoenix.meta.tags" name="twitter:url">
+  <meta content="Phoenix Title" name="twitter:title">
+  <meta content="Phoenix Descriptions" name="twitter:description">
+  <meta content="https://phoenix.meta.tags/logo.png" name="twitter:image">
 
   ```
 
