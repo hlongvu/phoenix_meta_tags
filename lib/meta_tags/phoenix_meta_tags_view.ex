@@ -66,19 +66,19 @@ defmodule PhoenixMetaTags.TagView do
       """
       def render_tag_twitter(tags) do
         [
-          tag(:meta, content: "summary_large_image", property: "twitter:card"),
-          tag(:meta, content: get_tags_value(tags, "url", "twitter:url"), property: "twitter:url"),
+          tag(:meta, content: "summary_large_image", name: "twitter:card"),
+          tag(:meta, content: get_tags_value(tags, "url", "twitter:url"), name: "twitter:url"),
           tag(:meta,
             content: get_tags_value(tags, "title", "twitter:title"),
-            property: "twitter:title"
+            name: "twitter:title"
           ),
           tag(:meta,
             content: get_tags_value(tags, "description", "twitter:description"),
-            property: "twitter:description"
+            name: "twitter:description"
           ),
           tag(:meta,
             content: get_tags_value(tags, "image", "twitter:image"),
-            property: "twitter:image"
+            name: "twitter:image"
           )
         ]
       end
@@ -92,7 +92,10 @@ defmodule PhoenixMetaTags.TagView do
 
       defp render_tags_map(map) do
         map
-        |> Enum.map(fn {k, v} -> tag(:meta, content: v, property: k) end)
+        |> Enum.map(fn
+          {"twitter:" <> _ = k, v} -> tag(:meta, content: v, name: k)
+          {k, v} -> tag(:meta, content: v, property: k)
+        end)
       end
 
       @doc """
