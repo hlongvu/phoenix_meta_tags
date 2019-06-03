@@ -117,7 +117,7 @@ defmodule PhoenixMetaTagsTest do
         content_tag(:title, "config_title"),
         tag(:meta, content: "config_title", name: "title"),
         tag(:meta, content: "config_title", property: "og:title"),
-        tag(:meta, content: "config_title", property: "twitter:title"),
+        tag(:meta, content: "config_title", name: "twitter:title"),
         tag(:meta, content: "abc", property: "fb:video")
       ]
       |> Enum.map(fn tag ->
@@ -159,11 +159,11 @@ defmodule PhoenixMetaTagsTest do
         tag(:meta, content: "PhoenixTags;", property: "og:title"),
         tag(:meta, content: "PhoenixTags Blog", property: "og:description"),
         tag(:meta, content: "https://images.unsplash.com/", property: "og:image"),
-        tag(:meta, content: "summary_large_image", property: "twitter:card"),
-        tag(:meta, content: "https://blog.PhoenixTags.com", property: "twitter:url"),
-        tag(:meta, content: "PhoenixTags;", property: "twitter:title"),
-        tag(:meta, content: "PhoenixTags Blog", property: "twitter:description"),
-        tag(:meta, content: "https://images.unsplash.com/", property: "twitter:image"),
+        tag(:meta, content: "summary_large_image", name: "twitter:card"),
+        tag(:meta, content: "https://blog.PhoenixTags.com", name: "twitter:url"),
+        tag(:meta, content: "PhoenixTags;", name: "twitter:title"),
+        tag(:meta, content: "PhoenixTags Blog", name: "twitter:description"),
+        tag(:meta, content: "https://images.unsplash.com/", name: "twitter:image"),
         tag(:meta, content: "abc", property: "fb:video"),
         tag(:meta, content: "PhoenixTags", property: "title1"),
         tag(:meta, content: "1200129192192192", property: "fb:appid"),
