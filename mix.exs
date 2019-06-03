@@ -4,7 +4,7 @@ defmodule PhoenixMetaTags.MixProject do
   def project do
     [
       app: :phoenix_meta_tags,
-      version: "0.1.6",
+      version: "0.1.7",
       elixir: "~> 1.4",
       start_permanent: Mix.env() == :prod,
       description: description(),
