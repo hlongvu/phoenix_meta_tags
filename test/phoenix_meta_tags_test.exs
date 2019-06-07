@@ -140,6 +140,28 @@ defmodule PhoenixMetaTagsTest do
       assert Enum.member?(tags_all, og_tag)
     end
 
+    test "test rewrite types of Open Graph and Twitter Card" do
+      tags = %{
+        title: "PhoenixTags;",
+        description: "PhoenixTags Blog",
+        url: "https://blog.PhoenixTags.com",
+        image: "https://images.unsplash.com/",
+        og: %{
+          type: "music.song"
+        },
+        twitter: %{
+          card: "summer"
+        }
+      }
+
+      og_tag = tag(:meta, content: "music.song", property: "og:type")
+      twitter_tag = tag(:meta, content: "summer", name: "twitter:card")
+
+      tags_all = render_tags_all(tags)
+      assert Enum.member?(tags_all, og_tag)
+      assert Enum.member?(tags_all, twitter_tag)
+    end
+
     test "test all tags - sets defaults for all meta tags" do
       tags = %{
         title: "PhoenixTags;",

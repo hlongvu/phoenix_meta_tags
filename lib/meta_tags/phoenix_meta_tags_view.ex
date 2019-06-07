@@ -50,7 +50,7 @@ defmodule PhoenixMetaTags.TagView do
       """
       def render_tag_og(tags) do
         [
-          tag(:meta, content: "website", property: "og:type"),
+          tag(:meta, content: get_tags_value(tags, "og:type", "og:type"), property: "og:type"),
           tag(:meta, content: get_tags_value(tags, "url", "og:url"), property: "og:url"),
           tag(:meta, content: get_tags_value(tags, "title", "og:title"), property: "og:title"),
           tag(:meta,
@@ -66,7 +66,7 @@ defmodule PhoenixMetaTags.TagView do
       """
       def render_tag_twitter(tags) do
         [
-          tag(:meta, content: "summary_large_image", name: "twitter:card"),
+          tag(:meta, content: get_tags_value(tags, "twitter:card", "twitter:card"), name: "twitter:card"),
           tag(:meta, content: get_tags_value(tags, "url", "twitter:url"), name: "twitter:url"),
           tag(:meta,
             content: get_tags_value(tags, "title", "twitter:title"),
