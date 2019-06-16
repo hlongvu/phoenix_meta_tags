@@ -11,6 +11,9 @@ use Mix.Config
 # You can configure your application as:
 #
 #     config :phoenix_meta_tags, key: :value
+config :phoenix_meta_tags,
+  "og:type": "website",
+  "twitter:card": "summary_large_image"
 #
 # and access this configuration in your application as:
 #
