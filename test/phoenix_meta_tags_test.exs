@@ -130,14 +130,22 @@ defmodule PhoenixMetaTagsTest do
       tags = %{
         title: "PhoenixTags",
         og: %{
-          title: "Override"
+          title: "Override",
+          type: "new_type"
+        },
+        twitter: %{
+          card: "new_card"
         }
       }
 
       og_tag = tag(:meta, content: "Override", property: "og:title")
+      og_type = tag(:meta, content: "new_type", property: "og:type")
+      twitter_card = tag(:meta, content: "new_card", name: "twitter:card")
 
       tags_all = render_tags_all(tags)
       assert Enum.member?(tags_all, og_tag)
+      assert Enum.member?(tags_all, og_type)
+      assert Enum.member?(tags_all, twitter_card)
     end
 
     test "test rewrite types of Open Graph and Twitter Card" do
@@ -196,10 +204,10 @@ defmodule PhoenixMetaTagsTest do
         tag(:meta, content: "w200", property: "fb:video:specs:west")
       ]
 
-      # assert all_tags -- expected == []
-      Enum.map(all_tags, fn tag ->
-        assert tag in expected
-      end)
+       assert all_tags -- expected == []
+#      Enum.map(all_tags, fn tag ->
+#        assert tag in expected
+#      end)
     end
   end
 end
