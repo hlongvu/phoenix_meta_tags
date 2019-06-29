@@ -116,7 +116,7 @@ defmodule PhoenixMetaTagsTest do
       [
         content_tag(:title, "config_title"),
         tag(:meta, content: "config_title", name: "title"),
-        tag(:meta, content: "config_title", property: "og:title"),
+        tag(:meta, content: "New title", property: "og:title"),
         tag(:meta, content: "config_title", name: "twitter:title"),
         tag(:meta, content: "abc", property: "fb:video")
       ]
@@ -186,7 +186,7 @@ defmodule PhoenixMetaTagsTest do
         tag(:meta, content: "PhoenixTags Blog", name: "description"),
         tag(:meta, content: "website", property: "og:type"),
         tag(:meta, content: "https://blog.PhoenixTags.com", property: "og:url"),
-        tag(:meta, content: "PhoenixTags;", property: "og:title"),
+        tag(:meta, content: "New title", property: "og:title"),
         tag(:meta, content: "PhoenixTags Blog", property: "og:description"),
         tag(:meta, content: "https://images.unsplash.com/", property: "og:image"),
         tag(:meta, content: "summary_large_image", name: "twitter:card"),

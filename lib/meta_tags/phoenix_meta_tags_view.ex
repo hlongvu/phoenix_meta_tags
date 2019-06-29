@@ -15,7 +15,12 @@ defmodule PhoenixMetaTags.TagView do
   defmacro __using__(_) do
     quote do
       alias PhoenixMetaTags.MapHelper
-      @default_tags ["title", "description", "image", "url", "og:type", "twitter:card"]
+
+      @default_tags ["title", "description", "image", "url",
+        "og:type", "og:url", "og:title", "og:description", "og:image",
+        "twitter:title", "twitter:card", "twitter:url", "twitter:description",  "twitter:image"]
+
+
       @config Application.get_all_env(:phoenix_meta_tags)
               |> Enum.into(%{})
               |> MapHelper.flatMap()

@@ -2,6 +2,7 @@ use Mix.Config
 
 config :phoenix_meta_tags,
   title: "config_title",
+  "og:title": "New title",
   fb: %{
     appid: "1200129192192192",
     video: %{
